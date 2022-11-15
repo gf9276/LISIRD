@@ -1,0 +1,37 @@
+# 学校服务器用的
+
+arch:
+  epochs: 10  # 绰绰有余
+
+model:
+  checkpoint_path: '/home/guof/data/experiments/kp2d/'
+  params:
+    use_color: True
+    do_upsample: True
+    do_cross: True
+    descriptor_loss: True
+    use_new_descriptor_loss: True
+    add_score_addition_loss: True
+    add_desc_relate_score_loss: False
+    keypoint_net_type: 'KeypointPreactResnet'
+  scheduler:
+    decay: 0.8
+    lr_epoch_divide_frequency: 1
+  optimizer:
+    learning_rate: 0.001
+
+datasets:
+  augmentation:
+    image_shape: (256,320)
+    jittering: (0.4, 0.3, 0.3, 0.1)     # Color jittering values
+  train:
+    batch_size: 16
+    num_workers: 6
+    path: '/data0/guof/coco2017/train2017/'
+  val:
+    path: '/data0/guof/hpatches-sequences-release/'
+
+wandb:
+  dry_run: False
+  project: "kp2d"
+
